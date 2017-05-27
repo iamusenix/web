@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "web-react",
+      "script": "bin/www",
+      "watch": false,
+      "env": {
+        "NODE_ENV": "production",
+        "HA_NODE_PORT": 9000
+      }
+    }
+  ]
+}
