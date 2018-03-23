@@ -1,13 +1,13 @@
 'use strict';
 
 var webpack = require('webpack');
-var plugins = require('webpack-load-plugins')();
+//var plugins = require('webpack-load-plugins')();
 const merge = require('webpack-merge');
 
 var baseConfig = require('./webpack.config.base.js')();
 
 var devConfig = {
-
+    mode: 'development',
     devtool: 'source-map',
 
     output: {

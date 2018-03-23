@@ -2,7 +2,7 @@
 
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
-var plugins = require('webpack-load-plugins')();
+//var plugins = require('webpack-load-plugins')();
 var path = require('path');
 
 function getBaseConfiguration(options) {
@@ -35,7 +35,7 @@ function getBaseConfiguration(options) {
                         loader:'babel-loader',
                         options:{
                             sourceMap:true,
-                            presets: ["es2015","stage-2", "react" ],
+                            //presets: ["es2015","stage-2", "react" ],
                             plugins: [
                                 "add-module-exports",
                                 ['import', [{ libraryName: "antd", style: 'css' }]]

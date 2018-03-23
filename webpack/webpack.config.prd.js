@@ -7,7 +7,7 @@ const merge = require('webpack-merge');
 var baseConfig = require('./webpack.config.base.js')();
 
 var devConfig = {
-
+    mode:'production',
     devtool: false,
 
     output: {

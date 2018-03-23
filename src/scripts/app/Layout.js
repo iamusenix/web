@@ -8,7 +8,7 @@ import {
   matchPath
 } from 'react-router-dom';
 
-import CreateRoom from 'scripts/create/CreateRoom';
+import CreateRoom from 'scripts/app/create/CreateRoom';
 class Layout extends React.Component {
     constructor(props) {
         super(props);
