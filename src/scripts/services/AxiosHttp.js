@@ -1,6 +1,11 @@
 
 import axios from 'axios';
-import $ from 'jquery';
+
+axios.interceptors.response.use(function (response) {
+    return response.data;
+  }, function (error) {
+    return Promise.reject(error);
+  });
 export default {
     get:function(url,params,isPublic=false){
         if(!isPublic){
@@ -20,7 +25,8 @@ export default {
     },
     
     postAsForm:function(url,data){
-        return axios.post(url,$.param(data),{
+        var param = new URLSearchParams(data);
+        return axios.post(url,param,{
             headers:{
                 "Content-Type": "application/x-www-form-urlencoded"
             }

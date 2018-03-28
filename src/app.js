@@ -10,10 +10,11 @@ import {
 } from 'react-router-dom';
 import { applyMiddleware, createStore, compose } from 'redux';
 import {Provider} from 'react-redux';
-import createLogger from 'redux-logger';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import AppReducer from 'scripts/reducers/AppReducer';
 import AppGlobal from 'scripts/utils/AppGlobal';
-import Layout from 'scripts/app/Layout';
+import AuthRoute from 'scripts/app/AuthRoute';
 import ScrollToTop from 'scripts/app/ScrollToTop';
 import 'scripts/style/global.scss';
 import 'scripts/app/app.scss';
@@ -21,12 +22,11 @@ import 'scripts/app/app.scss';
 AppGlobal();//global initialization
 function initStore(){
     var store = {};
+    var enhancer = applyMiddleware(thunk);
     if(localStorage.getItem('debug')){
-       var newCreateStore = applyMiddleware(createLogger())(createStore);
-       return newCreateStore(AppReducer,store);
-    }else{
-        return createStore(AppReducer,store);
+        enhancer = enhancer(logger)
     }
+    return createStore(AppReducer,store, enhancer);
 }
 const store = initStore();
 window.AppGlobal.getStore = function(){
@@ -38,7 +38,7 @@ class App extends React.Component {
             <Provider store = {store}>
                 <Router>
                     <ScrollToTop>
-                        <Layout/>
+                        <AuthRoute/>
                     </ScrollToTop>
                 </Router>
             </Provider>

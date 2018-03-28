@@ -1,5 +1,18 @@
+import AuthService from 'scripts/services/AuthService';
 
-import Constants from './Constants.js';
-export default {
-    initMe: (userInfo) => ({type:Constants.ME.GET_USER_INFO,userInfo:userInfo})
+
+export function updateAuthInfo(authInfo) {
+    return {type:"updateAuthInfo",authInfo};
+}
+export function updateUserInfo(userInfo){
+    return {type:"updateUserInfo",userInfo};
+}
+
+export function authenticate(token){
+    return (dispatch,getState)=>{
+        return AuthService.getUserInfoByToken(token).then((data)=>{
+            dispatch(updateAuthInfo({access_token:token}));
+            dispatch(updateUserInfo(data));
+        });
+    }
 }
