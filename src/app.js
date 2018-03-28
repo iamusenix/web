@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import { applyMiddleware, createStore, compose } from 'redux';
 import {Provider} from 'react-redux';
-import logger from 'redux-logger';
+import {createLogger} from 'redux-logger';
 import thunk from 'redux-thunk';
 import AppReducer from 'scripts/reducers/AppReducer';
 import AppGlobal from 'scripts/utils/AppGlobal';
@@ -22,9 +22,11 @@ import 'scripts/app/app.scss';
 AppGlobal();//global initialization
 function initStore(){
     var store = {};
-    var enhancer = applyMiddleware(thunk);
+    var enhancer;
     if(localStorage.getItem('debug')){
-        enhancer = enhancer(logger)
+        enhancer = applyMiddleware(thunk,createLogger());
+    }else{
+        enhancer= applyMiddleware(thunk);
     }
     return createStore(AppReducer,store, enhancer);
 }
@@ -36,7 +38,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store = {store}>
-                <Router>
+                <Router basename='/admin-ui'>
                     <ScrollToTop>
                         <AuthRoute/>
                     </ScrollToTop>

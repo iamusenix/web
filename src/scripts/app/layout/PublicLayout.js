@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import Login from 'scripts/app/login/Login';
@@ -17,9 +18,9 @@ class PublicLayout extends React.Component {
         return (
             <div className="page-wrapper">
                 <Switch>                   
-                    <Route path={"/login"} component={Login}/>
-                    <Route path={"/register"} component={Register}/>
-                    <Route  component={Login}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
+                    <Redirect to="/login" />
                 </Switch>
             </div>
         );

@@ -8,11 +8,16 @@ export function updateUserInfo(userInfo){
     return {type:"updateUserInfo",userInfo};
 }
 
-export function authenticate(token){
+export function authenticate(){
     return (dispatch,getState)=>{
-        return AuthService.getUserInfoByToken(token).then((data)=>{
-            dispatch(updateAuthInfo({access_token:token}));
-            dispatch(updateUserInfo(data));
-        });
+        let token = sessionStorage.getItem('access_token');
+        if(token){
+            AuthService.getUserInfoByToken(token).then((data)=>{
+                dispatch(updateAuthInfo({access_token:token}));
+                dispatch(updateUserInfo(data));
+            });
+        }else{
+            dispatch(updateAuthInfo({access_token:null}));
+        }
     }
 }

@@ -18,19 +18,16 @@ class AuthRoute extends React.Component {
 
     componentDidMount(){
         let {actions} = this.props;
-        let token = sessionStorage.getItem('access_token');
-        if(token){
-            actions.authenticate(token);
-        }
+        actions.authenticate();
     }
     render() {
         const {authInfo} = this.props.me;
         if(!authInfo){
-            return <AppSpin/>;
+            return <Route path="/"  component={AppSpin} />;
         }else if(authInfo.access_token){
-            return <Layout/>;
+            return <Route path="/"  component={Layout} />;
         }else{
-            return <PublicLayout/>
+            return <Route path="/"  component={PublicLayout} />;
         }
     }
 }
@@ -42,5 +39,5 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators({authenticate}, dispatch) }
 }
-export default connect(mapStateToProps,mapDispatchToProps) (AuthRoute);
+export default   withRouter(connect(mapStateToProps,mapDispatchToProps) (AuthRoute));
 
