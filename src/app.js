@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-  withRouter,
-  matchPath
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+    withRouter,
+    matchPath,
+    browserHistory
 } from 'react-router-dom';
 import { applyMiddleware, createStore, compose } from 'redux';
-import {Provider} from 'react-redux';
-import {createLogger} from 'redux-logger';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import AppReducer from 'scripts/reducers/AppReducer';
 import AppGlobal from 'scripts/utils/AppGlobal';
@@ -20,27 +21,27 @@ import 'scripts/style/global.scss';
 import 'scripts/app/app.scss';
 
 AppGlobal();//global initialization
-function initStore(){
+function initStore() {
     var store = {};
     var enhancer;
-    if(localStorage.getItem('debug')){
-        enhancer = applyMiddleware(thunk,createLogger());
-    }else{
-        enhancer= applyMiddleware(thunk);
+    if (localStorage.getItem('debug')) {
+        enhancer = applyMiddleware(thunk, createLogger());
+    } else {
+        enhancer = applyMiddleware(thunk);
     }
-    return createStore(AppReducer,store, enhancer);
+    return createStore(AppReducer, store, enhancer);
 }
 const store = initStore();
-window.AppGlobal.getStore = function(){
+window.AppGlobal.getStore = function () {
     return store.getState();
 }
 class App extends React.Component {
     render() {
         return (
-            <Provider store = {store}>
-                <Router basename='/admin-ui'>
+            <Provider store={store}>
+                <Router basename='/admin-ui' history={browserHistory}>
                     <ScrollToTop>
-                        <AuthRoute/>
+                        <AuthRoute />
                     </ScrollToTop>
                 </Router>
             </Provider>
@@ -48,5 +49,5 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('react-app'));
+ReactDOM.render(<App />, document.getElementById('react-app'));
 

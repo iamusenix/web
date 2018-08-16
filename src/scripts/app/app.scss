@@ -1,10 +1,16 @@
 
-.page{
-    min-height: 500px;
+:global #react-app{
+    height: 100%;
 }
-.icon{
+
+:global .icon{
     width: 1em; height: 1em;
-    //vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
+}
+
+:global .flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

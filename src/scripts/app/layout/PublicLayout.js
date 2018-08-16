@@ -5,7 +5,6 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-
 import Login from 'scripts/app/login/Login';
 import Register from 'scripts/app/register/Register';
 class PublicLayout extends React.Component {
@@ -16,13 +15,11 @@ class PublicLayout extends React.Component {
     }
     render() {
         return (
-            <div className="page-wrapper">
-                <Switch>                   
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
-                    <Redirect to="/login" />
-                </Switch>
-            </div>
+            <Switch>                   
+                <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
+                <Redirect to="/login" />
+            </Switch>
         );
     }
 }

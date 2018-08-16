@@ -4,6 +4,8 @@ var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 //var plugins = require('webpack-load-plugins')();
 var path = require('path');
+const env = process.env.NODE_ENV;
+const isDevMode = env == 'development';
 
 function getBaseConfiguration(options) {
     return {
@@ -53,7 +55,18 @@ function getBaseConfiguration(options) {
                 },
                 {
                     test: /\.(scss|sass)$/,
-                    use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                    use: ['style-loader', 
+                        {
+                            loader:'css-loader',
+                            options:{
+                                modules: true,
+                                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                                camelCase:'dashesOnly',
+                                importLoaders:2,
+                                sourceMap:isDevMode
+                            }
+                        }, 
+                        'postcss-loader', 'sass-loader']
                 },
                 {
                     test: /\.js$/,
